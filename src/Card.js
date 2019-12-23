@@ -21,7 +21,7 @@ const styles = theme => ({
     }
 });
 
-class ForecastCard extends React.Component {
+class Card extends React.Component {
 
     retrieveDayName(dayNumber) {
         let dayArray = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -33,41 +33,43 @@ class ForecastCard extends React.Component {
     }
 
     render() {
-        console.log(this.props);
-
-        return (
-            <React.Fragment>
-                <Paper className={this.props.classes.paper} >
-                    <Grid container className={this.props.classes.root}>
-                        <Grid item xs={12} className={this.props.classes.dayHeading}>
-                            <Typography variant="subheading" align="center">
-                                {this.retrieveDayName(this.props.day)}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} className={this.props.classes.forecastImage}>
-                            <Grid container justify="center">
-                                <img src={this.retrieveIconURL(this.props.icon)} alt={this.props.weather} height="100" width="100" />
+        if (!this.props) {
+            return <h1>LOADING...</h1>
+        } else {
+            return (
+                <React.Fragment>
+                    <Paper className={this.props.classes.paper} >
+                        <Grid container className={this.props.classes.root}>
+                            <Grid item xs={12} className={this.props.classes.dayHeading}>
+                                <Typography variant="subheading" align="center">
+                                    {this.retrieveDayName(this.props.day)}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12} className={this.props.classes.forecastImage}>
+                                <Grid container justify="center">
+                                    <img src={this.retrieveIconURL(this.props.icon)} alt={this.props.weather} height="100" width="100" />
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="subheading" align="center">
+                                    {this.props.weather}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="subheading" align="center">
+                                    {this.props.temperature}
+                                </Typography>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="subheading" align="center">
-                                {this.props.weather}
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Typography variant="subheading" align="center">
-                                {this.props.temperature}
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Paper>
-            </React.Fragment>
-        );
+                    </Paper>
+                </React.Fragment>
+            );
+        }
     }
 }
 
-ForecastCard.propTypes = {
+Card.propTypes = {
     classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(ForecastCard);
+export default withStyles(styles)(Card);

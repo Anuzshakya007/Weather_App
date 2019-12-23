@@ -68,43 +68,47 @@ class Weather extends React.Component {
     }
 
     render() {
-        return (
-            <React.Fragment>
-                <Typography variant="display4" align="center">
-                    <h1>Weather Forecast</h1>
-                </Typography>
+        if (!this.state.forecasts) {
+            return <h1>LOADING...</h1>
+        } else {
+            return (
+                <React.Fragment>
+                    <Typography variant="display4" align="center">
+                        <h1>Weather Forecast</h1>
+                    </Typography>
 
-                <Grid container spacing={5} className={this.props.classes.root}>
-                    <Grid item xs={12} className={this.props.classes.gridRow}>
-                        <Grid container justify="center">
-                            <TextField
-                                label="city"
-                                value={this.state.q}
-                                onChange={e => this.updateq(e)}
-                                className="mt-3" />
+                    <Grid container spacing={5} className={this.props.classes.root}>
+                        <Grid item xs={12} className={this.props.classes.gridRow}>
+                            <Grid container justify="center">
+                                <TextField
+                                    label="city"
+                                    value={this.state.q}
+                                    onChange={e => this.updateq(e)}
+                                    className="mt-3" />
 
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Grid container justify="center" >
-                            <Button variant="contained" color="primary" className={this.props.classes.button} onClick={this.refreshForecast}>
-                                Refresh
+                        <Grid item xs={12}>
+                            <Grid container justify="center" >
+                                <Button variant="contained" color="primary" className={this.props.classes.button} onClick={this.refreshForecast}>
+                                    Refresh
                     </Button>
+                            </Grid>
+                        </Grid>
+                        <Grid item xs={12} className={this.props.classes.gridRow}>
+                            <Grid container justify="center" spacing={3}>
+                                {this.state.forecasts.map(value => (
+                                    <Grid key={value.key} item>
+                                        <Card day={value.day} temperature={value.temperature} weather={value.weather} value={value.key} icon={value.icon} />
+                                    </Grid>
+                                ))}
+                            </Grid>
                         </Grid>
                     </Grid>
-                    <Grid item xs={12} className={this.props.classes.gridRow}>
-                        <Grid container justify="center" spacing={3}>
-                            {this.state.forecasts.map(value => (
-                                <Grid key={value.key} item>
-                                    <Card day={value.day} temperature={value.temperature} weather={value.weather} value={value.key} icon={value.icon} />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Grid>
-                </Grid>
 
-            </React.Fragment>
-        );
+                </React.Fragment>
+            );
+        }
     }
 }
 
