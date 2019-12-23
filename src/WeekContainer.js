@@ -49,7 +49,7 @@ class Weather extends React.Component {
                 truncatedData.forEach((element, index) => {
                     let day = (new Date(element.dt_txt)).getDay();
                     let currentElementWeather = element.weather[0];
-                    let currentElementTemp = element.main.temp + '°C';
+                    let currentElementTemp =(( element.main.temp-32)*5/9).toFixed(3).slice(0,-1) + '°C';
                     let dailyForecast = { 'key': index, 'day': day, 'temperature': currentElementTemp, 'weather': currentElementWeather.main, 'icon': currentElementWeather.icon }
                     forecasts.push(dailyForecast);
                 });
